@@ -1,11 +1,15 @@
 package com.example.crud.springbootcrud.service.impl;
 
+import com.example.crud.springbootcrud.common.message.DataTableObject;
 import com.example.crud.springbootcrud.entity.Books;
 import com.example.crud.springbootcrud.entity.repository.BooksRepository;
 import com.example.crud.springbootcrud.exception.ErrorCode;
 import com.example.crud.springbootcrud.exception.StudyException;
 import com.example.crud.springbootcrud.service.BooksService;
 import com.example.crud.springbootcrud.wrapper.BooksWrapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -84,5 +88,17 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public void deleteAll() throws StudyException {
         //Not implemented yet
+    }
+
+    @Override
+    public Page<BooksWrapper> getPageableList(String sSearch, int startPage, int pageSize) throws StudyException {
+        int page = DataTableObject.getPageFromStartAndLength(startPage, pageSize);
+        if (booksRepository.count() == 0) {
+            return new PageImpl<>(new ArrayList<>(), PageRequest.of(page, pageSize), 0);
+        } else {
+            Page<Books> pageableModel = booksRepository.getPageable(sSearch, PageRequest.of(page, pageSize));
+            List<BooksWrapper> wrapperList = toWrapperList(pageableModel.getContent());
+            return new PageImpl<>(wrapperList, PageRequest.of(page, pageSize), pageableModel.getTotalElements());
+        }
     }
 }
