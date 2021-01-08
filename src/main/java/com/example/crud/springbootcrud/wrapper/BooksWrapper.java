@@ -29,4 +29,13 @@ public class BooksWrapper {
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
+
+    @Override
+    public String toString() {
+        return "BooksWrapper{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", publisher='" + publisher + '\'' +
+                '}';
+    }
 }
