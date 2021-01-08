@@ -1,14 +1,12 @@
 package com.example.crud.springbootcrud.controller;
 
 import com.example.crud.springbootcrud.common.controller.BaseController;
+import com.example.crud.springbootcrud.common.exception.StudyException;
 import com.example.crud.springbootcrud.common.response.CommonResponses;
 import com.example.crud.springbootcrud.common.response.CustomReturn;
-import com.example.crud.springbootcrud.common.exception.StudyException;
 import com.example.crud.springbootcrud.service.BooksService;
 import com.example.crud.springbootcrud.wrapper.BooksWrapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,4 +29,42 @@ public class BooksController extends BaseController {
             return commonResponses.commonFailedResponse();
         }
     }
+
+    @GetMapping(value = "/id/{id}")
+    public CustomReturn<BooksWrapper> getById(@PathVariable Long id) throws StudyException {
+        CommonResponses<BooksWrapper> commonResponses = new CommonResponses<>();
+        try {
+            BooksWrapper wrapper = booksService.getById(id);
+            if (wrapper!= null) {
+                return commonResponses.commonSuccessResponse(wrapper);
+            } else {
+                return commonResponses.commonFailedResponse();
+            }
+        } catch (Exception e) {
+            return commonResponses.commonFailedError();
+        }
+    }
+
+    @PostMapping(value = "/save")
+    public CustomReturn<BooksWrapper> save(@RequestBody BooksWrapper booksWrapper) throws StudyException{
+        CommonResponses<BooksWrapper> commonResponses = new CommonResponses<>();
+        BooksWrapper wrapper = booksService.save(booksWrapper);
+        if (wrapper != null){
+            return commonResponses.commonSuccessResponse(wrapper);
+        }else {
+            return commonResponses.commonFailedResponse();
+        }
+    }
+
+    @PostMapping(value = "/delete/{id}")
+    public CustomReturn<BooksWrapper> delete(@PathVariable Long id) throws StudyException{
+        CommonResponses<BooksWrapper> commonResponses = new CommonResponses<>();
+        boolean result = booksService.delete(id);
+        if (result){
+            return commonResponses.commonDeleteSuccess();
+        } else {
+            return commonResponses.commonFailedResponse();
+        }
+    }
+
 }

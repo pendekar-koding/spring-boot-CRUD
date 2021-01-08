@@ -20,4 +20,18 @@ public class CommonResponses<T> extends BaseController {
 		return customReturn;
 	}
 
+	public CustomReturn<T> commonFailedError() {
+		CustomReturn<T> customReturn = new CustomReturn<>();
+		customReturn.setMessage(STR_ERROR);
+		customReturn.setStatus("500");
+		return customReturn;
+	}
+
+	public CustomReturn<T> commonDeleteSuccess(){
+		CustomReturn<T> customReturn = new CustomReturn<>();
+		customReturn.setMessage(STR_SUCCESS);
+		customReturn.setStatus("200");
+		return customReturn;
+	}
+
 }

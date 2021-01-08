@@ -28,5 +28,4 @@ public class StudyException extends Exception {
     public ErrorCode getCode(){
         return this.errorCode;
     }
-
 }
