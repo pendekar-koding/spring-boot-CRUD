@@ -1,4 +1,4 @@
-package com.example.crud.springbootcrud.exception;
+package com.example.crud.springbootcrud.common.exception;
 
 public class StudyException extends Exception {
     private static final long serialVersionUID = 6270116931011412328L;

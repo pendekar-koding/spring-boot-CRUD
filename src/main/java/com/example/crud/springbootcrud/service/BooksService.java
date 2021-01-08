@@ -1,6 +1,6 @@
 package com.example.crud.springbootcrud.service;
 
-import com.example.crud.springbootcrud.exception.StudyException;
+import com.example.crud.springbootcrud.common.exception.StudyException;
 import com.example.crud.springbootcrud.wrapper.BooksWrapper;
 import org.springframework.data.domain.Page;
 

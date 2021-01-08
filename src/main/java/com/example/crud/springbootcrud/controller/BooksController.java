@@ -3,7 +3,7 @@ package com.example.crud.springbootcrud.controller;
 import com.example.crud.springbootcrud.common.controller.BaseController;
 import com.example.crud.springbootcrud.common.response.CommonResponses;
 import com.example.crud.springbootcrud.common.response.CustomReturn;
-import com.example.crud.springbootcrud.exception.StudyException;
+import com.example.crud.springbootcrud.common.exception.StudyException;
 import com.example.crud.springbootcrud.service.BooksService;
 import com.example.crud.springbootcrud.wrapper.BooksWrapper;
 import org.springframework.web.bind.annotation.GetMapping;
