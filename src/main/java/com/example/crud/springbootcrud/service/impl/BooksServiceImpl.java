@@ -75,6 +75,8 @@ public class BooksServiceImpl implements BooksService {
 
     @Override
     public BooksWrapper save(BooksWrapper wrapper) throws StudyException {
+        wrapper.setVersion(1);
+        wrapper.setDeleted(false);
         return toWrapper(booksRepository.save(toEntity(wrapper)));
     }
 
