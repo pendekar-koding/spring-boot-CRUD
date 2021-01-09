@@ -48,13 +48,20 @@ public class BooksController extends BaseController {
     @PostMapping(value = "/save")
     public CustomReturn<BooksWrapper> save(@RequestBody BooksWrapper booksWrapper) throws StudyException{
         CommonResponses<BooksWrapper> commonResponses = new CommonResponses<>();
-        BooksWrapper wrapper = booksService.save(booksWrapper);
-        if (wrapper != null){
-            return commonResponses.commonSuccessResponse(wrapper);
-        }else {
+        try {
+            booksWrapper.setDeleted(false);
+            booksWrapper.setVersion(1);
+            booksService.save(booksWrapper);
+            if (booksWrapper != null){
+                return commonResponses.commonSuccessResponse(booksWrapper);
+            } else {
+                return commonResponses.commonFailedResponse();
+            }
+        } catch (Exception e){
             return commonResponses.commonFailedResponse();
         }
     }
+
 
     @PostMapping(value = "/delete/{id}")
     public CustomReturn<BooksWrapper> delete(@PathVariable Long id) throws StudyException{

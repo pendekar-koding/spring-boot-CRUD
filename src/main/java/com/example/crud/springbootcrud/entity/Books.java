@@ -1,25 +1,18 @@
 package com.example.crud.springbootcrud.entity;
 
+import com.example.crud.springbootcrud.common.model.ReferenceBase;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "books")
-public class Books {
+public class Books extends ReferenceBase {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     private String title;
     private String publisher;
 
-    @Column(name = "id")
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
     @Column(name = "title", length = 30)
     public String getTitle() {
         return title;

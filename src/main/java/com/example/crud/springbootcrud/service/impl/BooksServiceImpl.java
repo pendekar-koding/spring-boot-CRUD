@@ -10,6 +10,7 @@ import com.example.crud.springbootcrud.wrapper.BooksWrapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +30,10 @@ public class BooksServiceImpl implements BooksService {
         BooksWrapper wrapper = new BooksWrapper();
         if (entity != null){
             wrapper.setId(entity.getId());
+            wrapper.setDescription(entity.getDescription());
+            wrapper.setDeleted(entity.getDeleted());
+            wrapper.setVersion(entity.getVersion());
+
             wrapper.setTitle(entity.getTitle());
             wrapper.setPublisher(entity.getPublisher());
         }
@@ -44,6 +49,10 @@ public class BooksServiceImpl implements BooksService {
                 entity = optionalBooks.get();
             }
         }
+        entity.setDescription(wrapper.getDescription());
+        entity.setDeleted(wrapper.getDeleted());
+        entity.setVersion(wrapper.getVersion());
+
         entity.setTitle(wrapper.getTitle());
         entity.setPublisher(wrapper.getPublisher());
         return entity;
@@ -57,6 +66,11 @@ public class BooksServiceImpl implements BooksService {
             }
         }
         return rList;
+    }
+
+    @Override
+    public Long getNum() {
+        return booksRepository.count();
     }
 
     @Override
@@ -90,8 +104,9 @@ public class BooksServiceImpl implements BooksService {
         //Not implemented yet
     }
 
+
     @Override
-    public Page<BooksWrapper> getPageableList(String sSearch, int startPage, int pageSize) throws StudyException {
+    public Page<BooksWrapper> getPageableList(String sSearch, int startPage, int pageSize, Sort sort) throws StudyException {
         int page = DataTableObject.getPageFromStartAndLength(startPage, pageSize);
         if (booksRepository.count() == 0) {
             return new PageImpl<>(new ArrayList<>(), PageRequest.of(page, pageSize), 0);

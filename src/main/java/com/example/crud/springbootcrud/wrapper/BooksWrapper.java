@@ -1,18 +1,13 @@
 package com.example.crud.springbootcrud.wrapper;
 
-public class BooksWrapper {
+import com.example.crud.springbootcrud.common.wrapper.ReferenceBaseWrapper;
 
-    private Long id;
+public class BooksWrapper extends ReferenceBaseWrapper {
+
+
     private String title;
     private String publisher;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -33,8 +28,7 @@ public class BooksWrapper {
     @Override
     public String toString() {
         return "BooksWrapper{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
+                "title='" + title + '\'' +
                 ", publisher='" + publisher + '\'' +
                 '}';
     }
